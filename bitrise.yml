@@ -1,20 +1,22 @@
 ---
 format_version: '6'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
-project_type: react-native
+project_type: fastlane
+app:
+  envs:
+  - FASTLANE_XCODE_LIST_TIMEOUT: '120'
+  - opts:
+      is_expand: false
+    FASTLANE_WORK_DIR: android
+  - opts:
+      is_expand: false
+    FASTLANE_LANE: android deploy
 trigger_map:
 - push_branch: "*"
   workflow: primary
 - pull_request_source_branch: "*"
   workflow: primary
 workflows:
-  deploy:
-    steps:
-    - android-build@0.9.5:
-        inputs:
-        - project_location: "$PROJECT_LOCATION"
-        - module: "$MODULE"
-        - variant: "$BUILD_VARIANT"
   primary:
     steps:
     - activate-ssh-key@4.0.3:
@@ -22,9 +24,18 @@ workflows:
     - git-clone@4.0.14: {}
     - yarn@0.0.8:
         inputs:
-        - workdir: ./
         - command: install
-    - install-react-native@0.9.1: {}
+    - file-downloader@1.0.1:
+        inputs:
+        - destination: "$BITRISE_SOURCE_DIR/android/$BITRISEIO_ANDROID_KEYSTORE_ALIAS.keystore"
+        - source: "$BITRISEIO_ANDROID_KEYSTORE_URL"
+    - file-downloader@1.0.1:
+        inputs:
+        - destination: "$BITRISE_SOURCE_DIR/android/googleserviceaccount.json"
+        - source: "$BITRISEIO_SERVICE_ACCOUNT_JSON_KEY_URL"
+    - install-missing-android-tools@2.3.4:
+        inputs:
+        - gradlew_path: "$BITRISE_SOURCE_DIR/android/gradlew"
     - script@1.1.5:
         title: Do anything with Script step
         inputs:
@@ -32,39 +43,20 @@ workflows:
             #!/usr/bin/env bash
             # fail if any commands fails
             set -e
-            # debug logs
+            # debug log
             set -x
 
             # write your script here
-            echo "Bundling for iOS"
+            echo "log env vars:"
+            printenv
 
-            yarn android:deploy
-
-            # react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
-            echo "Bundling complete"
-app:
-  envs:
-  - opts:
-      is_expand: false
-    PROJECT_LOCATION: ./
-  - opts:
-      is_expand: false
-    MODULE: app
-  - opts:
-      is_expand: false
-    BUILD_VARIANT: Release
-  - opts:
-      is_expand: false
-    BITRISE_PROJECT_PATH: ios/xtest.xcodeproj
-  - opts:
-      is_expand: false
-    BITRISE_SCHEME: xtest
-  - opts:
-      is_expand: false
-    BITRISE_EXPORT_METHOD: development
-  - opts:
-      is_expand: false
-    GIT_REPOSITORY_URL: git@github.com:prios-don/xtest.git
-  - opts:
-      is_expand: false
-    BITRISE_GIT_BRANCH: release/12-26
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+    - certificate-and-profile-installer@1.10.1: {}
+    - fastlane@2.3.12:
+        inputs:
+        - lane: "$FASTLANE_LANE"
+        - work_dir: "$FASTLANE_WORK_DIR"
+    - deploy-to-bitrise-io@1.3.19: {}
