@@ -34,14 +34,14 @@ platform :android do
   lane :deploy do
     gradle(task: "clean assembleRelease")
     upload_to_play_store(
-      package_name: 'com.xtest',
+      package_name: CredentialsManager::AppfileConfig.try_fetch_value(:package_name),
       track: 'beta',
       skip_upload_apk: false,
       skip_upload_metadata: false,
       skip_upload_images: true,
       skip_upload_screenshots: true,
       apk: lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH],
-      json_key: './googleserviceaccount.json'
+      json_key: CredentialsManager::AppfileConfig.try_fetch_value(:json_key_file)
     )
   end
 end
