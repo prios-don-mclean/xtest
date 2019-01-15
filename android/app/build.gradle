@@ -134,7 +134,7 @@ android {
         applicationId "com.ytest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
+        versionCode System.getenv()['BITRISE_BUILD_NUMBER'] || 1
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
