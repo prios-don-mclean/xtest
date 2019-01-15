@@ -99,10 +99,10 @@ if(project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 
-def envYtestReleaseStoreFilename = false //System.getenv()['YTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['YTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore'
-def envYtestReleaseStorePassword = false //System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
-def envYtestReleaseStoreAlias = false //System.getenv()['YTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['YTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
-def envYtestReleaseKeyPassword = false //System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
+def envYtestReleaseStoreFilename = System.getenv()['YTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['YTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore'
+def envYtestReleaseStorePassword = System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
+def envYtestReleaseStoreAlias = System.getenv()['YTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['YTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
+def envYtestReleaseKeyPassword = System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
 
 def ytestReleaseStoreFilename = envYtestReleaseStoreFilename ? envYtestReleaseStoreFilename : properties.getProperty('ext.YTEST_RELEASE_STORE_FILENAME')
 def ytestReleaseStorePassword = envYtestReleaseStorePassword ? envYtestReleaseStorePassword : properties.getProperty('ext.YTEST_RELEASE_STORE_PASSWORD')
@@ -134,7 +134,7 @@ android {
         applicationId "com.ytest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
