@@ -1,2 +1,2 @@
 json_key_file("./googleserviceaccount.json")
-package_name("com.xtest") # e.g. com.krausefx.app
+package_name("com.ytest") # e.g. com.krausefx.app

@@ -1,3 +1,3 @@
-rootProject.name = 'xtest'
+rootProject.name = 'ytest'
 
 include ':app'

@@ -3,7 +3,7 @@ const { spawnSync } = require('child_process');
 const fs = require('fs');
 const BASE_APP_DIR = path.resolve(__dirname, '../');
 
-const buildAlias = process.env.PRIOS_RELEASE_KEY_ALIAS || 'xtest-android-signing-key';
+const buildAlias = process.env.PRIOS_RELEASE_KEY_ALIAS || 'ytest-android-signing-key';
 const keyStoreFilename = process.env.PRIOS_RELEASE_STORE_FILENAME || `${buildAlias}.keystore`;
 const keyStorePath = `${BASE_APP_DIR}/android/app/${keyStoreFilename}`;
 

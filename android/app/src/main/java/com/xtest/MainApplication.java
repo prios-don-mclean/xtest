@@ -1,4 +1,4 @@
-package com.xtest;
+package com.ytest;
 
 import android.app.Application;
 

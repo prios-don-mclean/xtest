@@ -99,28 +99,28 @@ if(project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 
-def envXtestReleaseStoreFilename = System.getenv()['XTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['XTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore'
-def envXtestReleaseStorePassword = System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
-def envXtestReleaseStoreAlias = System.getenv()['XTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['XTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
-def envXtestReleaseKeyPassword = System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
+def envYtestReleaseStoreFilename = false //System.getenv()['YTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['YTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore'
+def envYtestReleaseStorePassword = false //System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
+def envYtestReleaseStoreAlias = false //System.getenv()['YTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['YTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
+def envYtestReleaseKeyPassword = false //System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
 
-def xtestReleaseStoreFilename = envXtestReleaseStoreFilename ? envXtestReleaseStoreFilename : properties.getProperty('ext.XTEST_RELEASE_STORE_FILENAME')
-def xtestReleaseStorePassword = envXtestReleaseStorePassword ? envXtestReleaseStorePassword : properties.getProperty('ext.XTEST_RELEASE_STORE_PASSWORD')
-def xtestReleaseStoreAlias = envXtestReleaseStoreAlias ? envXtestReleaseStoreAlias : properties.getProperty('ext.XTEST_RELEASE_KEY_ALIAS')
-def xtestReleaseKeyPassword = envXtestReleaseKeyPassword ? envXtestReleaseKeyPassword : properties.getProperty('ext.XTEST_RELEASE_KEY_PASSWORD')
+def ytestReleaseStoreFilename = envYtestReleaseStoreFilename ? envYtestReleaseStoreFilename : properties.getProperty('ext.YTEST_RELEASE_STORE_FILENAME')
+def ytestReleaseStorePassword = envYtestReleaseStorePassword ? envYtestReleaseStorePassword : properties.getProperty('ext.YTEST_RELEASE_STORE_PASSWORD')
+def ytestReleaseStoreAlias = envYtestReleaseStoreAlias ? envYtestReleaseStoreAlias : properties.getProperty('ext.YTEST_RELEASE_KEY_ALIAS')
+def ytestReleaseKeyPassword = envYtestReleaseKeyPassword ? envYtestReleaseKeyPassword : properties.getProperty('ext.YTEST_RELEASE_KEY_PASSWORD')
 
 switch (true) {
-    case (null == xtestReleaseStoreFilename):
-        throw new GradleException('Required XTEST_RELEASE_STORE_FILENAME environment variable not set.')
+    case (null == ytestReleaseStoreFilename):
+        throw new GradleException('Required YTEST_RELEASE_STORE_FILENAME environment variable not set.')
         break
-    case (null == xtestReleaseStorePassword):
-        throw new GradleException('Required XTEST_RELEASE_STORE_PASSWORD environment variable not set.')
+    case (null == ytestReleaseStorePassword):
+        throw new GradleException('Required YTEST_RELEASE_STORE_PASSWORD environment variable not set.')
         break
-    case (null == xtestReleaseStoreAlias):
-        throw new GradleException('Required XTEST_RELEASE_KEY_ALIAS environment variable not set.')
+    case (null == ytestReleaseStoreAlias):
+        throw new GradleException('Required YTEST_RELEASE_KEY_ALIAS environment variable not set.')
         break
-    case (null == xtestReleaseKeyPassword):
-        throw new GradleException('Required XTEST_RELEASE_KEY_PASSWORD environment variable not set.')
+    case (null == ytestReleaseKeyPassword):
+        throw new GradleException('Required YTEST_RELEASE_KEY_PASSWORD environment variable not set.')
         break
     default:
         break
@@ -131,7 +131,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.xtest"
+        applicationId "com.ytest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
@@ -142,11 +142,11 @@ android {
     }
     signingConfigs {
         release {
-            if (xtestReleaseStoreFilename) {
-                storeFile file(xtestReleaseStoreFilename)
-                storePassword xtestReleaseStorePassword
-                keyAlias xtestReleaseStoreAlias
-                keyPassword xtestReleaseKeyPassword
+            if (ytestReleaseStoreFilename) {
+                storeFile file(ytestReleaseStoreFilename)
+                storePassword ytestReleaseStorePassword
+                keyAlias ytestReleaseStoreAlias
+                keyPassword ytestReleaseKeyPassword
             }
         }
     }
