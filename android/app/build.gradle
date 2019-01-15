@@ -126,6 +126,8 @@ switch (true) {
         break
 }
 
+def resolvedVersionCode = System.getenv()['BITRISE_BUILD_NUMBER'] ? System.getenv()['BITRISE_BUILD_NUMBER'].toInteger() || 1
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -134,7 +136,7 @@ android {
         applicationId "com.ytest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode System.getenv()['BITRISE_BUILD_NUMBER'] || 1
+        versionCode resolvedVersionCode
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
