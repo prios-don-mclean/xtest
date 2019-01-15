@@ -126,7 +126,7 @@ switch (true) {
         break
 }
 
-def resolvedVersionCode = System.getenv()['BITRISE_BUILD_NUMBER'] ? System.getenv()['BITRISE_BUILD_NUMBER'].toInteger() || 1
+def resolvedVersionCode = System.getenv()['BITRISE_BUILD_NUMBER'] ? System.getenv()['BITRISE_BUILD_NUMBER'].toInteger() : 1
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
