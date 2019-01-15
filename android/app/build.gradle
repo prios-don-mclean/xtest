@@ -95,9 +95,7 @@ def enableProguardInReleaseBuilds = false
 
 Properties properties = new Properties()
 
-def hasLocalPropertiesFile = project.rootProject.file('local.properties').exists();
-
-if(hasLocalPropertiesFile) {
+if(project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 
