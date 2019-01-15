@@ -109,11 +109,6 @@ def xtestReleaseStorePassword = envXtestReleaseStorePassword ? envXtestReleaseSt
 def xtestReleaseStoreAlias = envXtestReleaseStoreAlias ? envXtestReleaseStoreAlias : properties.getProperty('ext.XTEST_RELEASE_KEY_ALIAS')
 def xtestReleaseKeyPassword = envXtestReleaseKeyPassword ? envXtestReleaseKeyPassword : properties.getProperty('ext.XTEST_RELEASE_KEY_PASSWORD')
 
-println '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-println envXtestReleaseStoreFilename + 'xxx'
-println xtestReleaseStoreFilename + 'rrr'
-println '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-
 switch (true) {
     case (null == xtestReleaseStoreFilename):
         throw new GradleException('Required XTEST_RELEASE_STORE_FILENAME environment variable not set.')
