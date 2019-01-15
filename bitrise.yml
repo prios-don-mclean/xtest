@@ -32,7 +32,7 @@ workflows:
             #!/usr/bin/env bash
             # fail if any commands fails
             set -e
-            # debug log
+            # debug logs
             set -x
 
             # write your script here
