@@ -68,3 +68,4 @@ android/local.properties
 android/app/bin
 *.jsbundle
 android/*.hprof
+android/googleserviceaccount.json

@@ -93,6 +93,37 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+Properties properties = new Properties()
+
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+def envXtestReleaseStoreFilename = System.getenv()['XTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['XTEST_RELEASE_STORE_FILENAME'] : System.getenv()['$BITRISEIO_ANDROID_KEYSTORE_URL']
+def envXtestReleaseStorePassword = System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['$BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
+def envXtestReleaseStoreAlias = System.getenv()['XTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['XTEST_RELEASE_KEY_ALIAS'] : System.getenv()['$BITRISEIO_ANDROID_KEYSTORE_ALIAS']
+def envXtestReleaseKeyPassword = System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['$BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
+
+def xtestReleaseStoreFilename = envXtestReleaseStoreFilename ? envXtestReleaseStoreFilename : properties.getProperty('ext.XTEST_RELEASE_STORE_FILENAME')
+def xtestReleaseStorePassword = envXtestReleaseStorePassword ? envXtestReleaseStorePassword : properties.getProperty('ext.XTEST_RELEASE_STORE_PASSWORD')
+def xtestReleaseStoreAlias = envXtestReleaseStoreAlias ? envXtestReleaseStoreAlias : properties.getProperty('ext.XTEST_RELEASE_KEY_ALIAS')
+def xtestReleaseKeyPassword = envXtestReleaseKeyPassword ? envXtestReleaseKeyPassword : properties.getProperty('ext.XTEST_RELEASE_KEY_PASSWORD')
+
+switch (true) {
+    case (null == xtestReleaseStoreFilename):
+        throw new GradleException('Required XTEST_RELEASE_STORE_FILENAME environment variable not set.')
+        break
+    case (null == xtestReleaseStorePassword):
+        throw new GradleException('Required XTEST_RELEASE_STORE_PASSWORD environment variable not set.')
+        break
+    case (null == xtestReleaseStoreAlias):
+        throw new GradleException('Required XTEST_RELEASE_KEY_ALIAS environment variable not set.')
+        break
+    case (null == xtestReleaseKeyPassword):
+        throw new GradleException('Required XTEST_RELEASE_KEY_PASSWORD environment variable not set.')
+        break
+    default:
+        break
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -101,10 +132,20 @@ android {
         applicationId "com.xtest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 3
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
+        }
+    }
+    signingConfigs {
+        release {
+            if (xtestReleaseStoreFilename) {
+                storeFile file(xtestReleaseStoreFilename)
+                storePassword xtestReleaseStorePassword
+                keyAlias xtestReleaseStoreAlias
+                keyPassword xtestReleaseKeyPassword
+            }
         }
     }
     splits {
@@ -119,6 +160,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release

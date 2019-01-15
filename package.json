@@ -4,6 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android --variant=productionDebug",
+    "android:generate-keystore-file": "node ./build_scripts/android_generate_new_keystore_file.js",
+    "android:prod": "cd android && ./gradlew assembleRelease",
+    "android:tests": "react-native run-android --variant=automatedTestsDebug",
+    "android:beta": "cd android && fastlane android beta && cd ..",
+    "android:deploy": "cd android && fastlane android deploy && cd ..",
+    "ios:beta": "cd ios && fastlane ios beta && cd ..",
+    "ios:deploy": "cd ios && fastlane ios deploy && cd ..",
     "test": "jest"
   },
   "dependencies": {
