@@ -1,0 +1,70 @@
+---
+format_version: '6'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: react-native
+trigger_map:
+- push_branch: "*"
+  workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+workflows:
+  deploy:
+    steps:
+    - android-build@0.9.5:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+        - module: "$MODULE"
+        - variant: "$BUILD_VARIANT"
+  primary:
+    steps:
+    - activate-ssh-key@4.0.3:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4.0.14: {}
+    - yarn@0.0.8:
+        inputs:
+        - workdir: ./
+        - command: install
+    - install-react-native@0.9.1: {}
+    - script@1.1.5:
+        title: Do anything with Script step
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            # write your script here
+            echo "Bundling for iOS"
+
+            yarn android:deploy
+
+            # react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
+            echo "Bundling complete"
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: ./
+  - opts:
+      is_expand: false
+    MODULE: app
+  - opts:
+      is_expand: false
+    BUILD_VARIANT: Release
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: ios/xtest.xcodeproj
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: xtest
+  - opts:
+      is_expand: false
+    BITRISE_EXPORT_METHOD: development
+  - opts:
+      is_expand: false
+    GIT_REPOSITORY_URL: git@github.com:prios-don/xtest.git
+  - opts:
+      is_expand: false
+    BITRISE_GIT_BRANCH: release/12-26
