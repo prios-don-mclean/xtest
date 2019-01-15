@@ -99,7 +99,7 @@ if(project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 
-def envXtestReleaseStoreFilename = System.getenv()['XTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['XTEST_RELEASE_STORE_FILENAME'] : System.getenv()['RISEIO_ANDROID_KEYSTORE_URL']
+def envXtestReleaseStoreFilename = System.getenv()['XTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['XTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_URL']
 def envXtestReleaseStorePassword = System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['XTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
 def envXtestReleaseStoreAlias = System.getenv()['XTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['XTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
 def envXtestReleaseKeyPassword = System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['XTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
