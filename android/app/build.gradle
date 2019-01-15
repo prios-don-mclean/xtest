@@ -110,8 +110,8 @@ def xtestReleaseStoreAlias = envXtestReleaseStoreAlias ? envXtestReleaseStoreAli
 def xtestReleaseKeyPassword = envXtestReleaseKeyPassword ? envXtestReleaseKeyPassword : properties.getProperty('ext.XTEST_RELEASE_KEY_PASSWORD')
 
 println '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-println envXtestReleaseStoreFilename + 'xx'
-println xtestReleaseStoreFilename + 'rr'
+println envXtestReleaseStoreFilename + 'xxx'
+println xtestReleaseStoreFilename + 'rrr'
 println '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
 
 switch (true) {
