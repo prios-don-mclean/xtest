@@ -133,9 +133,6 @@ def packageSlurper = new JsonSlurper()
 def packageJson = packageSlurper.parse file('../../package.json')
 def packageJsonVersion = packageJson.version
 
-println '>>>>>>>>>>>>>>>>>>>>>>>'
-println packageJsonVersion
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
