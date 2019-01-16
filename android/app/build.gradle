@@ -130,7 +130,7 @@ switch (true) {
 def resolvedVersionCode = System.getenv()['BITRISE_BUILD_NUMBER'] ? System.getenv()['BITRISE_BUILD_NUMBER'].toInteger() : 1
 
 def packageSlurper = new JsonSlurper()
-def packageJson = packageSlurper.parse file('package.json')
+def packageJson = packageSlurper.parse file('../../package.json')
 def packageJsonVersion = packageJson.version
 
 println '>>>>>>>>>>>>>>>>>>>>>>>'
