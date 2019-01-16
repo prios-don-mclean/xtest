@@ -36,7 +36,7 @@ platform :android do
     upload_to_play_store(
       package_name: CredentialsManager::AppfileConfig.try_fetch_value(:package_name),
       track: 'internal',
-      rollout: '1'
+      rollout: '1',
       skip_upload_apk: false,
       skip_upload_metadata: false,
       skip_upload_images: true,
