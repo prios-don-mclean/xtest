@@ -1,0 +1,39 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Build production version of ios app"
+  lane :build do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  desc "Description of what the lane does"
+  lane :deploy do
+    enable_automatic_code_signing(path: "ytest.xcodeproj")
+    # disable_automatic_code_signing(path: "ytest.xcodeproj")
+    gym(
+      scheme: "ytest",
+      workspace: "ytest.xcodeproj/project.xcworkspace",
+      configuration: "Release",
+      silent: true,
+      clean: true,
+      # output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
+      output_name: "ytest.ipa",       # specify the name of the .ipa file to generate (including file extension)
+      # sdk: "iOS 11.1"        # use SDK as the name or path of the base SDK when building the project.
+    )
+  end
+end
