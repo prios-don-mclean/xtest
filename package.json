@@ -20,6 +20,7 @@
     "react-native": "0.57.8"
   },
   "devDependencies": {
+    "@wdio/sauce-service": "^5.4.8",
     "appium": "^1.10.1",
     "appium-doctor": "^1.8.0",
     "babel-jest": "23.6.0",

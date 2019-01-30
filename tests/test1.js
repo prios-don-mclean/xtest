@@ -1,15 +1,33 @@
 const { remote } = require('webdriverio');
 const assert = require('assert');
 
+// LOCAL
+// const config = {
+//     logLevel: 'error',
+//     // path: '/',
+//     hostname: 'localhost',
+//     port: 4723,
+//     capabilities: {
+//         platformName: 'Android',
+//         deviceName: 'Android Emulator',
+//         app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
+//     }
+// };
+
+// SAUCELABS
 const config = {
-    logLevel: 'error',
-    // path: '/',
-    hostname: 'localhost',
-    port: 4723,
+    // logLevel: 'error',
+    // path: '/wd/hub',
+    // hostname: 'ondemand.saucelabs.com:80',
+    // port: 4444,
+    // services: ['sauce'],
+    user: 'prios-don-mclean',
+    key: '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
+    // sauceConnect: true,
     capabilities: {
         platformName: 'Android',
         deviceName: 'Android Emulator',
-        app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
+        app: 'sauce-storage:ytest.apk'
     }
 };
 
