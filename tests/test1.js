@@ -21,13 +21,14 @@ const config = {
     // hostname: 'ondemand.saucelabs.com:80',
     // port: 4444,
     // services: ['sauce'],
-    user: 'prios-don-mclean',
-    key: '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
+    user: process.env.SAUCELABS_USERNAME, // 'prios-don-mclean',
+    key: process.env.SAUCELABS_ACCESS_KEY, // '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
     // sauceConnect: true,
     capabilities: {
-        platformName: 'Android',
+        // platformName: 'Android',
         deviceName: 'Android Emulator',
-        app: 'sauce-storage:ytest.apk'
+        app: 'https://github.com/prios-don-mclean/xtest/raw/master/artifacts/ytest.apk'
+        // app: 'sauce-storage:ytest.apk'
     }
 };
 
@@ -36,7 +37,7 @@ describe('Test that app loads', function() {
     let browser = null;
     before(async function() {
         try {
-            this.timeout(10000);
+            this.timeout(100000);
             browser = await remote(config);
         } catch(err) {
             if(err && err.message) {
@@ -48,14 +49,14 @@ describe('Test that app loads', function() {
     });
 
     //CLOSE SESSION
-    // after(async () => {
-    //     try {
-    //         await browser.deleteSession();;
-    //     }
-    //     catch(err) {
-    //         console.error(err);
-    //     }
-    // });
+    after(async () => {
+        try {
+            await browser.deleteSession();;
+        }
+        catch(err) {
+            console.error(err);
+        }
+    });
 
     it('renders app renders top level content view', async () => {
         if (browser.isAndroid) {
