@@ -1,21 +1,17 @@
 const { remote } = require('webdriverio');
 const assert = require('assert');
 
-const SERVER_PORT = 4723;
-const SERVER_URL = 'localhost';
-const CAPABILITIES = {
-    platformName: 'Android',
-    deviceName: 'Android Emulator',
-    app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
-};
-
 const config = {
     logLevel: 'error',
     // path: '/',
-    hostname: SERVER_URL,
-    port: SERVER_PORT,
-    capabilities: CAPABILITIES
-}
+    hostname: 'localhost',
+    port: 4723,
+    capabilities: {
+        platformName: 'Android',
+        deviceName: 'Android Emulator',
+        app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
+    }
+};
 
 describe('Test that app loads', function() { 
     // this.timeout(300000);
