@@ -20,8 +20,8 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native ON YTESTTTTTTTT!</Text>
+      <View testID="testview" accessibilityLabel="testview" style={styles.container}>
+        <Text testID="welcomeText" accessibilityLabel="welcomeText" style={styles.welcome}>Welcome to React Native ON YTEST!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>

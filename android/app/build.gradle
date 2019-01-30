@@ -100,15 +100,15 @@ if(project.rootProject.file('local.properties').exists()) {
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
 }
 
-def envYtestReleaseStoreFilename = System.getenv()['YTEST_RELEASE_STORE_FILENAME'] ? System.getenv()['YTEST_RELEASE_STORE_FILENAME'] : System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore'
-def envYtestReleaseStorePassword = System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] ? System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
-def envYtestReleaseStoreAlias = System.getenv()['YTEST_RELEASE_KEY_ALIAS'] ? System.getenv()['YTEST_RELEASE_KEY_ALIAS'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
-def envYtestReleaseKeyPassword = System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] ? System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] : System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
+def envYtestReleaseStoreFilename = System.getenv()['YTEST_RELEASE_STORE_FILENAME'] ?: System.getenv()['BITRISE_SOURCE_DIR'] ? System.getenv()['BITRISE_SOURCE_DIR'] + '/android/' + System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS'] + '.keystore' : false
+def envYtestReleaseStorePassword = System.getenv()['YTEST_RELEASE_STORE_PASSWORD'] ?: System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PASSWORD']
+def envYtestReleaseStoreAlias = System.getenv()['YTEST_RELEASE_KEY_ALIAS'] ?: System.getenv()['BITRISEIO_ANDROID_KEYSTORE_ALIAS']
+def envYtestReleaseKeyPassword = System.getenv()['YTEST_RELEASE_KEY_PASSWORD'] ?: System.getenv()['BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD']
 
-def ytestReleaseStoreFilename = envYtestReleaseStoreFilename ? envYtestReleaseStoreFilename : properties.getProperty('ext.YTEST_RELEASE_STORE_FILENAME')
-def ytestReleaseStorePassword = envYtestReleaseStorePassword ? envYtestReleaseStorePassword : properties.getProperty('ext.YTEST_RELEASE_STORE_PASSWORD')
-def ytestReleaseStoreAlias = envYtestReleaseStoreAlias ? envYtestReleaseStoreAlias : properties.getProperty('ext.YTEST_RELEASE_KEY_ALIAS')
-def ytestReleaseKeyPassword = envYtestReleaseKeyPassword ? envYtestReleaseKeyPassword : properties.getProperty('ext.YTEST_RELEASE_KEY_PASSWORD')
+def ytestReleaseStoreFilename = envYtestReleaseStoreFilename ?: properties.getProperty('ext.YTEST_RELEASE_STORE_FILENAME')
+def ytestReleaseStorePassword = envYtestReleaseStorePassword ?: properties.getProperty('ext.YTEST_RELEASE_STORE_PASSWORD')
+def ytestReleaseStoreAlias = envYtestReleaseStoreAlias ?: properties.getProperty('ext.YTEST_RELEASE_KEY_ALIAS')
+def ytestReleaseKeyPassword = envYtestReleaseKeyPassword ?: properties.getProperty('ext.YTEST_RELEASE_KEY_PASSWORD')
 
 switch (true) {
     case (null == ytestReleaseStoreFilename):
