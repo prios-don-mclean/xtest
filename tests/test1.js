@@ -123,7 +123,7 @@ describe('Test that app loads', function() {
     });
 
     it('navigate to Form Test Screen and back home', async function() {
-        this.timeout(5000);
+        this.timeout(15000);
         if (browser.isAndroid) {
             const formTestScreenButton = await browser.$('~formTestScreenButtonID');
 
@@ -144,6 +144,53 @@ describe('Test that app loads', function() {
             const homeScreenContainerDisplayed = await homeScreenContainer.isDisplayed();
     
             assert.equal(homeScreenContainerDisplayed, true);
+        }
+    
+        if (browser.isIOS) {
+            assert.equal(browser.isIOS, true);
+        }
+    });
+
+    it('navigate to Form Test Screen and submit form', async function() {
+        this.timeout(15000);
+        if (browser.isAndroid) {
+            const formTestScreenButton = await browser.$('~formTestScreenButtonID');
+
+            await formTestScreenButton.click();
+
+            const formScreenContainer = await browser.$('~formScreenContainerID');
+
+            await formScreenContainer.waitForDisplayed(5000);
+
+            const formScreenContainerDisplayed = await formScreenContainer.isDisplayed();
+    
+            assert.equal(formScreenContainerDisplayed, true);
+
+            const firstNameInput = await browser.$('~firstNameInputID');
+            const lastNameInput = await browser.$('~lastNameInputID');
+            const emailInput = await browser.$('~emailInputID');
+            const submitButton = await browser.$('~submitButtonID');
+
+            await firstNameInput.waitForDisplayed(5000);
+            await lastNameInput.waitForDisplayed(5000);
+            await emailInput.waitForDisplayed(5000);
+            await submitButton.waitForDisplayed(5000);
+
+            const firstNameInputDisplayed = await firstNameInput.isDisplayed();
+            const lastNameInputDisplayed = await lastNameInput.isDisplayed();
+            const emailInputDisplayed = await emailInput.isDisplayed();
+            const submitButtonDisplayed = await submitButton.isDisplayed();
+
+            assert.equal(firstNameInputDisplayed, true);
+            assert.equal(lastNameInputDisplayed, true);
+            assert.equal(emailInputDisplayed, true);
+            assert.equal(submitButtonDisplayed, true);
+
+            await firstNameInput.setValue('my first name is very very very long');
+            await lastNameInput.setValue('my last name is short');
+            await emailInput.setValue('emaillllll@example.org');
+            // TODO: select dropdown value
+            await submitButton.touchAction('press');
         }
     
         if (browser.isIOS) {

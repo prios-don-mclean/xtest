@@ -35,13 +35,16 @@ class FormTestScreen extends Component {
         <Content>
           <Form>
             <Item floatingLabel>
-              <Input onChangeText={(value) => this.onInputChange("firstName", value)} placeholder="First Name" />
+              <Input testID="firstNameInputID" accessibilityLabel="firstNameInputID"
+                onChangeText={(value) => this.onInputChange("firstName", value)} placeholder="First Name" />
             </Item>
             <Item floatingLabel>
-              <Input onChangeText={(value) => this.onInputChange("lastName", value)} placeholder="Last Name" />
+              <Input testID="lastNameInputID" accessibilityLabel="lastNameInputID"
+                 onChangeText={(value) => this.onInputChange("lastName", value)} placeholder="Last Name" />
             </Item>
             <Item floatingLabel>
-              <Input onChangeText={(value) => this.onInputChange("email", value)} placeholder="Email" />
+              <Input testID="emailInputID" accessibilityLabel="emailInputID"
+                onChangeText={(value) => this.onInputChange("email", value)} placeholder="Email" />
             </Item>
             <Item>
               <Picker
@@ -61,7 +64,8 @@ class FormTestScreen extends Component {
               </Picker>
             </Item>
           </Form>
-          <Button onPress={this.onSubmitForm.bind(this)} style={styles.submitButton} dark>
+          <Button testID="submitButtonID" accessibilityLabel="submitButtonID"
+            onPress={this.onSubmitForm.bind(this)} style={styles.submitButton} dark>
             <Text style={styles.submitButtonText}>Submit</Text>
           </Button>
         </Content>
