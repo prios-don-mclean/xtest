@@ -3,7 +3,7 @@ const assert = require('assert');
 
 const useLocalhostConfig = (process.argv[3] === '--localhost');
 
-console.log('use localhost config?: ', typeof useLocalhostConfig);
+console.log('use localhost config?: ', useLocalhostConfig);
 
 // LOCAL
 const localhostConfig = {
@@ -12,6 +12,7 @@ const localhostConfig = {
     hostname: 'localhost',
     port: 4723,
     capabilities: {
+        automationName: 'Espresso', //'UiAutomator2',
         platformName: 'Android',
         deviceName: 'Android Emulator',
         app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
@@ -37,7 +38,7 @@ const config = useLocalhostConfig ? localhostConfig : sauceLabsConfig;
 describe('Test that app loads', function() { 
     let browser = null;
     before(async function() {
-        this.timeout(100000);
+        this.timeout(150000);
         try {
             browser = await remote(config);
         } catch(err) {
@@ -51,38 +52,23 @@ describe('Test that app loads', function() {
 
     //CLOSE SESSION
     after(async function() {
-        this.timeout(100000);
+        this.timeout(15000);
         try {
             await browser.deleteSession();;
         }
         catch(err) {
             console.error(err);
         }
-    });
-
-    it('renders app renders top level content view', async function() {
+    });                                     
+    it('renders homeScreenContainer', async function() {
         if (browser.isAndroid) {
-            const selector = 'new UiSelector().resourceId("android:id/content")';
-            const contentView = await browser.$(`android=${selector}`);
-    
-            assert.equal(!!contentView, true);
-        } else if(browser.isIOS) {
-            //TODO: add ios specific tests here
-            assert.equal(true, true);
-        }
-        
-    });
-                                            
-    it('renders app renders testview', async function() {
-        // const selector = 'new UiSelector().index(1)';
-        // const TestView = await browser.$(`android=${selector}`);
-        if (browser.isAndroid) {
-            //select by accessibilityLabel (android)
-            const testView = await browser.$('~testview');
+            const homeScreenContainer = await browser.$('~homeScreenContainerID');
 
-            const testViewExists = await testView.isExisting();
+            await homeScreenContainer.waitForDisplayed(5000);
+
+            const homeScreenContainerDisplayed = await homeScreenContainer.isDisplayed();
     
-            assert.equal(testViewExists, true);
+            assert.equal(homeScreenContainerDisplayed, true);
         }
     
         if (browser.isIOS) {
@@ -91,15 +77,14 @@ describe('Test that app loads', function() {
     });
 
     it('renders app renders welcomeText', async function() {
-        // const selector = 'new UiSelector().index(1)';
-        // const TestView = await browser.$(`android=${selector}`);
         if (browser.isAndroid) {
-            //select by accessibilityLabel (android)
-            const welcomeText = await browser.$('~welcomeText');
+            const welcomeTextEl = await browser.$('~welcomeTextID');
 
-            const welcomeTextExists = await welcomeText.isExisting();
+            await welcomeTextEl.waitForDisplayed(5000);
+
+            const welcomeTextDisplayed = await welcomeTextEl.isDisplayed();
     
-            assert.equal(welcomeTextExists, true);
+            assert.equal(welcomeTextDisplayed, true);
         }
     
         if (browser.isIOS) {
@@ -107,16 +92,58 @@ describe('Test that app loads', function() {
         }
     });
 
-    it('change welcomeText', async function() {
-        // const selector = 'new UiSelector().index(1)';
-        // const TestView = await browser.$(`android=${selector}`);
+    it('verify Home Screen welcomeText', async function() {
         if (browser.isAndroid) {
-            //select by accessibilityLabel (android)
-            const welcomeTextEl = await browser.$('~welcomeText');
+            const welcomeTextEl = await browser.$('~welcomeTextID');
+
+            await welcomeTextEl.waitForDisplayed(5000);
 
             const welcomeText = await welcomeTextEl.getText();
     
-            assert.equal(welcomeText, 'Welcome to React Native ON YTEST!');
+            assert.equal(welcomeText, 'YTEST on on Android!');
+        }
+    
+        if (browser.isIOS) {
+            assert.equal(browser.isIOS, true);
+        }
+    });
+
+    it('verify Form Test Screen Button is displayed', async function() {
+        if (browser.isAndroid) {
+            const formTestScreenButton = await browser.$('~formTestScreenButtonID');
+
+            const formTestScreenButtonDisplayed = await formTestScreenButton.isDisplayed();
+    
+            assert.equal(formTestScreenButtonDisplayed, true);
+        }
+    
+        if (browser.isIOS) {
+            assert.equal(browser.isIOS, true);
+        }
+    });
+
+    it('navigate to Form Test Screen and back home', async function() {
+        this.timeout(5000);
+        if (browser.isAndroid) {
+            const formTestScreenButton = await browser.$('~formTestScreenButtonID');
+
+            await formTestScreenButton.click();
+
+            const formScreenContainer = await browser.$('~formScreenContainerID');
+
+            await formScreenContainer.waitForDisplayed(5000);
+
+            const formScreenContainerDisplayed = await formScreenContainer.isDisplayed();
+    
+            assert.equal(formScreenContainerDisplayed, true);
+
+            await browser.back();
+
+            const homeScreenContainer = await browser.$('~homeScreenContainerID');
+
+            const homeScreenContainerDisplayed = await homeScreenContainer.isDisplayed();
+    
+            assert.equal(homeScreenContainerDisplayed, true);
         }
     
         if (browser.isIOS) {
