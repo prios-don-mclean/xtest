@@ -32,5 +32,9 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "bundledDependencies": [
+    "react",
+    "react-native"
+  ]
 }

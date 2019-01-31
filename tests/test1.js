@@ -1,29 +1,29 @@
 const { remote } = require('webdriverio');
 const assert = require('assert');
 
+const useLocalhostConfig = (process.argv[3] === '--localhost');
+
+console.log('use localhost config?: ', typeof useLocalhostConfig);
+
 // LOCAL
-// const config = {
-//     logLevel: 'error',
-//     // path: '/',
-//     hostname: 'localhost',
-//     port: 4723,
-//     capabilities: {
-//         platformName: 'Android',
-//         deviceName: 'Android Emulator',
-//         app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
-//     }
-// };
+const localhostConfig = {
+    logLevel: 'error',
+    // path: '/',
+    hostname: 'localhost',
+    port: 4723,
+    capabilities: {
+        platformName: 'Android',
+        deviceName: 'Android Emulator',
+        app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
+    }
+};
 
 // SAUCELABS
-const config = {
-    // logLevel: 'error',
-    // path: '/wd/hub',
-    // hostname: 'ondemand.saucelabs.com:80',
-    // port: 4444,
-    // services: ['sauce'],
-    user: process.env.SAUCELABS_USERNAME, // 'prios-don-mclean',
+const sauceLabsConfig = {    
+    user: process.env.SAUCELABS_USERNAME, // prios-don-mclean',
     key: process.env.SAUCELABS_ACCESS_KEY, // '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
-    // sauceConnect: true,
+    // sauceConnect: true, //TODO: look into setting this up for secure connection.
+    // services: ['sauce'], //TODO: look into setting this up for secure connection.
     capabilities: {
         // platformName: 'Android',
         deviceName: 'Android Emulator',
@@ -32,12 +32,13 @@ const config = {
     }
 };
 
+const config = useLocalhostConfig ? localhostConfig : sauceLabsConfig;
+
 describe('Test that app loads', function() { 
-    // this.timeout(300000);
     let browser = null;
     before(async function() {
+        this.timeout(100000);
         try {
-            this.timeout(100000);
             browser = await remote(config);
         } catch(err) {
             if(err && err.message) {
@@ -49,7 +50,8 @@ describe('Test that app loads', function() {
     });
 
     //CLOSE SESSION
-    after(async () => {
+    after(async function() {
+        this.timeout(100000);
         try {
             await browser.deleteSession();;
         }
@@ -58,7 +60,7 @@ describe('Test that app loads', function() {
         }
     });
 
-    it('renders app renders top level content view', async () => {
+    it('renders app renders top level content view', async function() {
         if (browser.isAndroid) {
             const selector = 'new UiSelector().resourceId("android:id/content")';
             const contentView = await browser.$(`android=${selector}`);
@@ -71,7 +73,7 @@ describe('Test that app loads', function() {
         
     });
                                             
-    it('renders app renders testview', async () => {
+    it('renders app renders testview', async function() {
         // const selector = 'new UiSelector().index(1)';
         // const TestView = await browser.$(`android=${selector}`);
         if (browser.isAndroid) {
@@ -88,7 +90,7 @@ describe('Test that app loads', function() {
         }
     });
 
-    it('renders app renders welcomeText', async () => {
+    it('renders app renders welcomeText', async function() {
         // const selector = 'new UiSelector().index(1)';
         // const TestView = await browser.$(`android=${selector}`);
         if (browser.isAndroid) {
