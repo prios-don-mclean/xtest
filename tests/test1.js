@@ -1,7 +1,7 @@
 const { remote } = require('webdriverio');
 const assert = require('assert');
 
-const useLocalhostConfig = (process.argv[3] === '--localhost');
+const useLocalhostConfig = process.argv.some((arg) => arg === '--localhost');
 
 console.log('use localhost config?: ', useLocalhostConfig);
 
