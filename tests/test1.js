@@ -12,6 +12,8 @@ const localhostConfig = {
     hostname: 'localhost',
     port: 4723,
     capabilities: {
+        unicodeKeyboard: true,
+        resetKeyboard: true,
         automationName: 'Espresso', //'UiAutomator2',
         platformName: 'Android',
         deviceName: 'Android Emulator',
@@ -21,12 +23,14 @@ const localhostConfig = {
 
 // SAUCELABS
 const sauceLabsConfig = {    
-    user: process.env.SAUCELABS_USERNAME, // prios-don-mclean',
+    user: process.env.SAUCELABS_USERNAME, // 'prios-don-mclean',
     key: process.env.SAUCELABS_ACCESS_KEY, // '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
     // sauceConnect: true, //TODO: look into setting this up for secure connection.
     // services: ['sauce'], //TODO: look into setting this up for secure connection.
     capabilities: {
         // platformName: 'Android',
+        unicodeKeyboard: true,
+        resetKeyboard: true,
         deviceName: 'Android Emulator',
         app: 'https://github.com/prios-don-mclean/xtest/raw/master/artifacts/ytest.apk'
         // app: 'sauce-storage:ytest.apk'
@@ -189,8 +193,9 @@ describe('Test that app loads', function() {
             await firstNameInput.setValue('my first name is very very very long');
             await lastNameInput.setValue('my last name is short');
             await emailInput.setValue('emaillllll@example.org');
-            // TODO: select dropdown value
-            await submitButton.touchAction('press');
+            // // TODO: select dropdown value
+
+            await submitButton.click();
         }
     
         if (browser.isIOS) {
