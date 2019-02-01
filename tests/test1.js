@@ -38,7 +38,7 @@ const config = useLocalhostConfig ? localhostConfig : sauceLabsConfig;
 describe('Test that app loads', function() { 
     let browser = null;
     before(async function() {
-        this.timeout(150000);
+        this.timeout(50000);
         try {
             browser = await remote(config);
         } catch(err) {
@@ -52,7 +52,7 @@ describe('Test that app loads', function() {
 
     //CLOSE SESSION
     after(async function() {
-        this.timeout(15000);
+        this.timeout(50000);
         try {
             await browser.deleteSession();;
         }
@@ -123,7 +123,7 @@ describe('Test that app loads', function() {
     });
 
     it('navigate to Form Test Screen and back home', async function() {
-        this.timeout(15000);
+        this.timeout(50000);
         if (browser.isAndroid) {
             const formTestScreenButton = await browser.$('~formTestScreenButtonID');
 
@@ -152,7 +152,7 @@ describe('Test that app loads', function() {
     });
 
     it('navigate to Form Test Screen and submit form', async function() {
-        this.timeout(15000);
+        this.timeout(50000);
         if (browser.isAndroid) {
             const formTestScreenButton = await browser.$('~formTestScreenButtonID');
 
