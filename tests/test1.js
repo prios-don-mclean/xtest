@@ -32,8 +32,7 @@ const sauceLabsConfig = {
         unicodeKeyboard: true,
         resetKeyboard: true,
         deviceName: 'Android Emulator',
-        app: 'https://github.com/prios-don-mclean/xtest/raw/master/artifacts/ytest.apk'
-        // app: 'sauce-storage:ytest.apk'
+        app: 'sauce-storage:ytest.apk'
     }
 };
 
