@@ -23,7 +23,7 @@ platform :ios do
 
   desc "Description of what the lane does"
   lane :deploy do
-    # enable_automatic_code_signing(path: "ytest.xcodeproj")
+    enable_automatic_code_signing(path: "ytest.xcodeproj")
     # disable_automatic_code_signing(path: "ytest.xcodeproj")
     gym(
       scheme: "ytest",
@@ -36,11 +36,11 @@ platform :ios do
       # sdk: "iOS 11.1"        # use SDK as the name or path of the base SDK when building the project.
     )
     # upload_to_testflight(skip_submission: true)
-    upload_to_testflight(
-      username: CredentialsManager::AppfileConfig.try_fetch_value(:apple_id),
-      app_identifier: CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier),
-      skip_submission: true,
-      ipa: lane_context[SharedValues::IPA_OUTPUT_PATH]
-    )
+    # upload_to_testflight(
+    #   username: CredentialsManager::AppfileConfig.try_fetch_value(:apple_id),
+    #   app_identifier: CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier),
+    #   skip_submission: true,
+    #   ipa: lane_context[SharedValues::IPA_OUTPUT_PATH]
+    # )
   end
 end
