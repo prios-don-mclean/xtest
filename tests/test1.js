@@ -19,6 +19,13 @@ const localhostConfig = {
         deviceName: 'Android Emulator',
         app: process.cwd() + "/android/app/build/outputs/apk/release/app-release.apk"
     }
+    // capabilities: {
+    //     automationName: "XCUITest",
+    //     platformName: 'iOS',
+    //     app: process.cwd() + "/ios/ytest.ipa",
+    //     // udid: '123123123123abc',
+    //     deviceName: 'iPhone 6',
+    // }
 };
 
 // SAUCELABS

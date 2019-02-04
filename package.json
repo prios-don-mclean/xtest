@@ -9,10 +9,13 @@
     "android:prod": "cd android && ./gradlew assembleRelease",
     "android:tests": "react-native run-android --variant=automatedTestsDebug",
     "android:beta": "cd android && fastlane android beta && cd ..",
+    "android:test": "mocha tests",
     "android:deploy": "cd android && fastlane android deploy && cd ..",
     "ios:beta": "cd ios && fastlane ios beta && cd ..",
+    "ios:prod": "cd ios && fastlane ios deploy && cd ..",
+    "ios:test": "mocha tests",
     "ios:deploy": "cd ios && fastlane ios deploy && cd ..",
-    "android:test": "mocha tests",
+    
     "test": "jest"
   },
   "dependencies": {

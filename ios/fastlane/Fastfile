@@ -23,14 +23,15 @@ platform :ios do
 
   desc "Description of what the lane does"
   lane :deploy do
-    enable_automatic_code_signing(path: "ytest.xcodeproj")
-    # disable_automatic_code_signing(path: "ytest.xcodeproj")
+    # enable_automatic_code_signing(path: "ytest.xcodeproj")
+    disable_automatic_code_signing(path: "ytest.xcodeproj")
     gym(
       scheme: "ytest",
       workspace: "ytest.xcodeproj/project.xcworkspace",
       configuration: "Release",
       silent: true,
       clean: true,
+      export_method: 'development',
       # output_directory: "path/to/dir", # Destination directory. Defaults to current directory.
       output_name: "ytest.ipa",       # specify the name of the .ipa file to generate (including file extension)
       # sdk: "iOS 11.1"        # use SDK as the name or path of the base SDK when building the project.
