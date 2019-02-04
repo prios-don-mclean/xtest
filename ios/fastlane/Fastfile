@@ -24,7 +24,7 @@ platform :ios do
   desc "Description of what the lane does"
   lane :deploy do
     # enable_automatic_code_signing(path: "ytest.xcodeproj")
-    disable_automatic_code_signing(path: "ytest.xcodeproj")
+    # disable_automatic_code_signing(path: "ytest.xcodeproj")
     gym(
       scheme: "ytest",
       workspace: "ytest.xcodeproj/project.xcworkspace",
