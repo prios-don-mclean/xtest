@@ -54,8 +54,8 @@ const platformSpecificCapabilities = {
             }
         },
         android: {    
-            user: process.env.SAUCELABS_USERNAME, // 'william89', //process.env.SAUCELABS_USERNAME, // 'prios-don-mclean',
-            key: process.env.SAUCELABS_ACCESS_KEY, // '3eaf7023-d5ed-4dee-881f-682d8799382c', //process.env.SAUCELABS_ACCESS_KEY, // '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
+            user: 'william89', //process.env.SAUCELABS_USERNAME, // 'prios-don-mclean',
+            key: '3eaf7023-d5ed-4dee-881f-682d8799382c', //process.env.SAUCELABS_ACCESS_KEY, // '5917e2c0-4a34-48c4-bd4e-4fc91171d9c0',
             // sauceConnect: true, //TODO: look into setting this up for secure connection.
             // services: ['sauce'], //TODO: look into setting this up for secure connection.
             capabilities: {
@@ -97,6 +97,7 @@ describe('Test that app loads', function() {
         }
     });                                     
     it('renders homeScreenContainer', async function() {
+        this.timeout(10000);
         const homeScreenContainer = await browser.$('~homeScreenContainerID');
 
         await homeScreenContainer.waitForDisplayed(5000);
