@@ -3,8 +3,8 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Container, Content, Card, CardItem  } from 'native-base';
 
 const platformName = Platform.select({
-  ios: 'on iOS',
-  android: 'on Android'
+  ios: 'iOS',
+  android: 'Android'
 });
 
 class HomeScreen extends Component{
@@ -14,7 +14,11 @@ class HomeScreen extends Component{
   render() {
     return (
       <View testID="homeScreenContainerID" accessibilityLabel="homeScreenContainerID" style={styles.container}>
-        <Text testID="welcomeTextID" accessibilityLabel="welcomeTextID" style={styles.welcome}>YTEST on {platformName}!</Text>
+        {(Platform.OS === 'ios') ? (
+          <Text testID="welcomeTextID" style={styles.welcome}>YTEST on {platformName}!</Text>
+        ): (
+          <Text accessibilityLabel="welcomeTextID" style={styles.welcome}>YTEST on {platformName}!</Text>
+        )}
         <Container>
           <Content>
             <Card>
