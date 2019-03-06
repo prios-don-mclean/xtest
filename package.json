@@ -18,7 +18,7 @@
     "ios:deploy": "cd ios && fastlane ios deploy && cd ..",
     "test": "jest",
     "detox:build": "detox build",
-    "detox:ios": "detox test --take-screenshots"
+    "detox:ios": "detox test --take-screenshots --cleanup"
   },
   "dependencies": {
     "native-base": "^2.11.0",

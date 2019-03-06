@@ -1,5 +1,9 @@
+console.log('[firstTest.spec.js]: Running top level script');
+
 describe('Example', () => {
   beforeEach(async () => {
+    console.log('[beforeEach] device: ', device);
+
     await device.reloadReactNative();
   });
 

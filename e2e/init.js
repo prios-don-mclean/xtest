@@ -5,8 +5,19 @@ const adapter = require('detox/runners/jest/adapter');
 jest.setTimeout(120000);
 jasmine.getEnv().addReporter(adapter);
 
+console.log('[init.js]: Running top level script');
+
 beforeAll(async () => {
-  await detox.init(config);
+  console.log('[beforeAll] detox: ', detox);
+  console.log('[beforeAll] config: ', config);
+
+  try {
+    await detox.init(config);
+  } catch (error) {
+    console.error('[detox:init] failed with error:', error);
+  }
+
+  console.log('[beforeAll] finished initialization');
 });
 
 beforeEach(async () => {
