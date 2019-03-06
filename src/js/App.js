@@ -4,6 +4,7 @@ import { headerStyles } from './theme/headerStyles';
 
 import HomeScreen from './screens/HomeScreen';
 import FormTestScreen from './screens/FormTestScreen';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 
 const AppNavigator = createStackNavigator({
     "Home": HomeScreen,
@@ -19,7 +20,11 @@ const AppContainer = createAppContainer(AppNavigator);
 
 class App extends Component{
   render() {
-    return <AppContainer/>;
+    return (
+      <View testID="AppContainerID">
+        <Text>Hello World!</Text>
+      </View>
+    );
   }
 }
 
