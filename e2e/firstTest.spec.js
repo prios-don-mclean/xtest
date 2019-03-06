@@ -2,9 +2,9 @@ console.log('[firstTest.spec.js]: Running top level script');
 
 describe('Example', () => {
   beforeEach(async () => {
-    console.log('[beforeEach] device: ', device);
-
+    console.log('[firstTest.spec.js:beforeEach] start');
     await device.reloadReactNative();
+    console.log('[firstTest.spec.js:beforeEach] done');
   });
 
   it('should have welcome screen', async () => {

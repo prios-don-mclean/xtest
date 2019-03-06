@@ -8,7 +8,6 @@ jasmine.getEnv().addReporter(adapter);
 console.log('[init.js]: Running top level script');
 
 beforeAll(async () => {
-  console.log('[beforeAll] detox: ', detox);
   console.log('[beforeAll] config: ', config);
 
   try {
