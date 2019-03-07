@@ -22,7 +22,7 @@
     "detox:android:debug:build": "detox build  --configuration android.emu.debug",
     "detox:android:debug:test": "detox test --take-screenshots --configuration android.emu.debug --artifacts-location ./artifacts/android",
     "ci:detox:android:build": "detox build --configuration android.emu.release",
-    "ci:detox:android:test": "detox test --take-screenshots --record-videos all --cleanup  --record-logs all --configuration android.emu.debug --artifacts-location ./artifacts/android",
+    "ci:detox:android:test": "detox test --take-screenshots --record-videos all --cleanup  --record-logs all --configuration android.emu.release --artifacts-location ./artifacts/android",
     "ci:detox:ios:build": "detox build --configuration ios.sim.release",
     "ci:detox:ios:test": "detox test --take-screenshots --record-videos all --cleanup  --record-logs all --configuration ios.sim.release --artifacts-location ./artifacts/ios"
   },
